@@ -34,3 +34,16 @@
 方法二：比方法一节省使用栈空间，使用快慢指针。快指针每次走 2 步，慢指针每次走 1 步并压栈，当快指针走完时用栈弹出值与慢指针的每个做比较。（[isPalindrome](./linkedList/isPalindrome/main.go#isPalindrome_2)）
 
 方法三：改原链表，空间复杂度为 O(1)。如方法二找到中点后，将后半部分的链表反向，最后再对两个列表逐个比较。但注意，此方法会更改原链表，默认情况下需要最后将链表再还原回去。（[isPalindrome](./linkedList/isPalindrome/main.go#isPalindrome_3)）
+
+#### 链表分段
+
+- 将单链表按某值划分成左边小、中间相等、右边大的形式
+    - 将链表放入数组中，在数组上划分（笔试用）
+    - 分成小、中、在三部分，再将三部分串起来（面试用）
+
+方法一：用数组结构做中转，按中轴拆分为三段，再拼接起来。（[shardByValue_1](./linkedList/shardByValue/main.go#shardByValue_1)）
+
+
+方法二：在原链表上进行操作（TODO）
+
+> 方法一内部提供了两种将数组分段的方法，可参考 [splitArrByPivot_1](./linkedList/shardByValue/main.go#splitArrByPivot_1)、[splitArrByPivot_2](./linkedList/shardByValue/main.go#splitArrByPivot_2)
