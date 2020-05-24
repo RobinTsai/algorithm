@@ -47,3 +47,10 @@
 方法二：在原链表上进行操作（TODO）
 
 > 方法一内部提供了两种将数组分段的方法，可参考 [splitArrByPivot_1](./linkedList/shardByValue/main.go#splitArrByPivot_1)、[splitArrByPivot_2](./linkedList/shardByValue/main.go#splitArrByPivot_2)
+
+## 树问题（tree）
+
+- 二叉树的先序、中序、后序遍历（[traverse](tree/traverse/main.go#PreOrder)）
+- 非递归方法（迭代方法）实现二叉树的先、中、后序遍历（见注释，代码略）
+- 宽度优先遍历（或说按层遍历，用队列）（）
+- 高度优先遍历（用栈）（）
