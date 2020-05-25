@@ -50,7 +50,7 @@
 
 ## 树问题（tree）
 
-- 二叉树的先序、中序、后序遍历（[traverse](tree/traverse/main.go#PreOrder)）
+- 二叉树的先序、中序、后序遍历（[traverse/PreOrder](tree/traverse/main.go#PreOrder)）
 - 非递归方法（迭代方法）实现二叉树的先、中、后序遍历（见注释，代码略）
-- 宽度优先遍历（或说按层遍历，用队列）（）
+- 宽度优先遍历（或说按层遍历）（[TraverseByWidthPriority_ConvertToEdges](tree/traverse/main.go#TraverseByWidthPriority_ConvertToEdges)）
 - 高度优先遍历（用栈）（）
