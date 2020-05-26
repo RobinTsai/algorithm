@@ -47,3 +47,31 @@
 方法二：在原链表上进行操作（TODO）
 
 > 方法一内部提供了两种将数组分段的方法，可参考 [splitArrByPivot_1](./linkedList/shardByValue/main.go#splitArrByPivot_1)、[splitArrByPivot_2](./linkedList/shardByValue/main.go#splitArrByPivot_2)
+
+## 树问题（tree）
+
+### 概念
+
+- 二叉树，每个节点最多有两个子节点的树
+- 满二叉树，树的每一层都是满的（不能再加一个节点）
+- 完全二叉树，二叉树除最后一层外都是满的，且最后一层从左到右是依次有节点的（不一定满）
+- 先序、中序、后序参考下图
+
+![tree_three_orders](./images/tree_three_orders.png)
+
+### 基本操作
+
+- 二叉树的先序、中序、后序遍历
+    - 不用队列的方式 [traverse/PreOrder](./tree/traverse/main.go#PreOrder)
+    - 用队列的方式 [traverse/recursivePushToQueue_preOrder](./tree/traverse/main.go#recursivePushToQueue_preOrder)
+- 按层遍历（宽度优先遍历）
+    - 用普通数组的方式 [traverse/TraverseByLayer_ConvertToEdges](tree/traverse/main.go#TraverseByLayer_ConvertToEdges)
+    - 用队列 [traverse/TraverseByLayer_Queue](tree/traverse/main.go#TraverseByLayer_Queue)
+- 高度优先遍历（用栈）
+
+附： 实现了一个简单的队列 [Queue](./tree/share/simpleQueue.go#Queue)
+
+## 图问题
+
+- 深度优先遍历（DFS，Depth-First-Search），遍历顺序是按层向下遍历的（队列）；
+- 广度优先遍历（BFS，Breadth-First-Search），遍历顺序是先某一路走到底，再走下一路进行遍历（栈）。
