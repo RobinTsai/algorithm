@@ -1,17 +1,4 @@
 /** 1. 二叉树的先序、中序、后序遍历（PreOrder, MidOrder, PostOrder）
- * 比如下面一个二叉树
- *   A
- * B   C
- * 其中，B、C 代表 A 的左右子树（子树：包含它们的后代）
- * 那么，
- * 先序即 A->B->C
- * 中序即 B->A->C
- * 后序即 B->C->A
- * 当用递归时，先序、中序、后序就很好理解：
- * 我们规定遍历就是先分析一下当前节点，再分析它的左节点，再分析它的右节点
- * 那么，上面的例子的遍历就是 A->B->B->B->A->C->C->C->A
- * 重复三次B是因为后两次判断了B的左右子树后返回到B节点
- * 所以先序、中序、后序分别就是某个节点第一次、第二次、第三次出现的序列
  * 代码上体现就是：
  * 先序是递归之前输出 head（自己）
  * 中序是在遍历左节点后输出 head
@@ -29,7 +16,10 @@
  */
 package main
 
-import "fmt"
+import (
+	"fmt"
+	. "robintsai/algorithm/tree/share"
+)
 
 // 二叉树的结构
 type Node struct {
@@ -41,26 +31,52 @@ type Node struct {
 func main() {
 	head := getOneTree()
 
-	fmt.Print("先序遍历：")
+	// 迭代方式入列出列实现按层遍历
+	TraverseByLayer_Queue(head)
+	fmt.Println()
+
+	fmt.Print("\n递归方式，先序，用队列，输出：")
+	q1 := NewQueue(100)
+	recursivePushToQueue_preOrder(head, q1)
+	for cur_q1, ok := q1.Poll(); ok; cur_q1, ok = q1.Poll() {
+		fmt.Print(" ", cur_q1)
+	}
+
+	fmt.Print("\n递归方式，中序，用队列，输出：")
+	q2 := NewQueue(100)
+	recursivePushToQueue_midOrder(head, q2)
+	for cur_q2, ok := q2.Poll(); ok; cur_q2, ok = q2.Poll() {
+		fmt.Print(" ", cur_q2)
+	}
+
+	fmt.Print("\n递归方式，后序，用队列，输出：")
+	q3 := NewQueue(100)
+	recursivePushToQueue_postOrder(head, q3)
+	for cur_q3, ok := q3.Poll(); ok; cur_q3, ok = q3.Poll() {
+		fmt.Print(" ", cur_q3)
+	}
+
+	fmt.Println()
+	fmt.Print("\n递归先序，不用队列：")
 	PreOrder(head)
 	fmt.Println()
 
-	fmt.Print("中序遍历：")
+	fmt.Print("递归中序，不用队列：")
 	MidOrder(head)
 	fmt.Println()
 
-	fmt.Print("后序遍历：")
+	fmt.Print("递归后序，不用队列：")
 	PostOrder(head)
 	fmt.Println()
 
 	fmt.Println("\n输出叶子节点和逆序的边集：")
-	leaves, edges := TraverseByWidthPriority_ConvertToEdges(head)
+	leaves, edges := TraverseByLayer_ConvertToEdges(head)
 	fmt.Println("叶子节点：", leaves)
 	fmt.Println("逆序边集：", edges)
+
 }
 
-// ------------------ 1. 先序、中序、后序遍历 --------------------------
-// 先序遍历
+// 递归，先序，不用队列
 func PreOrder(head *Node) {
 	if head == nil {
 		return
@@ -71,7 +87,7 @@ func PreOrder(head *Node) {
 	PreOrder(head.Right)
 }
 
-// 中序遍历
+// 递归，中序，不用队列
 func MidOrder(head *Node) {
 	if head == nil {
 		return
@@ -82,7 +98,7 @@ func MidOrder(head *Node) {
 	MidOrder(head.Right)
 }
 
-// 后序遍历
+// 递归，后序，不用队列
 func PostOrder(head *Node) {
 	if head == nil {
 		return
@@ -93,15 +109,13 @@ func PostOrder(head *Node) {
 	fmt.Print(head.Value, " ") // 后序
 }
 
-// ------------------ end 先序、中序、后序遍历 --------------------------
-
-// ------------------ 2. 宽度优先遍历 --------------------------
 type Edges map[*Node]*Node
 
-// 按层遍历（宽度优先遍历）
-// 方法一：延申遍历
-// 返回树的所有 叶子节点 和 反向边集（从叶子节点开始按反向边集查，能查到每一个链路）
-func TraverseByWidthPriority_ConvertToEdges(head *Node) ([]*Node, Edges) {
+// 按层遍历，迭代，普通数组方式
+// 输入头节点
+// 返回树的所有 叶子节点 和 反向边集
+// （此函数的作用：从叶子节点开始按反向边集查，能查到每一个链路）
+func TraverseByLayer_ConvertToEdges(head *Node) ([]*Node, Edges) {
 	var edges Edges = Edges{head: nil} // 根节点的逆序边，可以有也可以没有
 	leaves := []*Node{}
 
@@ -144,10 +158,69 @@ func (n Node) String() string {
 	return fmt.Sprintf("%d", n.Value)
 }
 
-// 按层遍历（宽度优先遍历）
-// 方法二：用队列
-func TraverseByWidthPriority_Queue() {
+// 按层遍历（队列）
+// 迭代方式入列出列
+func TraverseByLayer_Queue(head *Node) {
+	q1 := NewQueue(100)
+	q1.Push(head) // 要先将 head 节点设置进去（出列时打印并分析子节点）
 
+	fmt.Print("迭代方式入列出列实现按层遍历：")
+	for cur := iterateByQueue(q1); cur != nil; cur = iterateByQueue(q1) {
+		fmt.Print(" ", cur)
+	}
+}
+
+// 按层遍历（队列）
+// 迭代方式，按层逐个入列再出列并输出返回
+// 输入的队列中要有一个 head 节点
+func iterateByQueue(q *SimpleQueue) *Node {
+	cur, ok := q.Poll()
+	if !ok {
+		return nil
+	}
+	node := cur.(*Node)
+	if node.Left != nil {
+		q.Push(node.Left)
+	}
+	if node.Right != nil {
+		q.Push(node.Right)
+	}
+	return node
+}
+
+// 递归方式，先序，用队列
+func recursivePushToQueue_preOrder(head *Node, q *SimpleQueue) {
+	q.Push(head)
+	if head.Left != nil {
+		recursivePushToQueue_preOrder(head.Left, q)
+	}
+	if head.Right != nil {
+		recursivePushToQueue_preOrder(head.Right, q)
+	}
+}
+
+// 递归方式，中序，用队列
+func recursivePushToQueue_midOrder(head *Node, q *SimpleQueue) {
+	// 中序方式加入队列
+	if head.Left != nil {
+		recursivePushToQueue_midOrder(head.Left, q)
+	}
+	q.Push(head)
+	if head.Right != nil {
+		recursivePushToQueue_midOrder(head.Right, q)
+	}
+}
+
+// 递归方式，后序，用队列
+func recursivePushToQueue_postOrder(head *Node, q *SimpleQueue) {
+	// 后序加入队列
+	if head.Left != nil {
+		recursivePushToQueue_postOrder(head.Left, q)
+	}
+	if head.Right != nil {
+		recursivePushToQueue_postOrder(head.Right, q)
+	}
+	q.Push(head)
 }
 
 // --------------- 辅助函数 --------------
