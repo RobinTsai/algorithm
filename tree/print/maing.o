@@ -1,0 +1,28 @@
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+type direction string
+
+const (
+	none  direction = ""
+	left  direction = "∧"
+	right direction = "∨"
+)
+
+func (head *Node) PrintAsTree() {
+	head.printAsTreeNode(0, none)
+}
+
+func (node *Node) printAsTreeNode(depth int, flag direction) {
+	if node == nil {
+		return
+	}
+	node.Right.printAsTreeNode(depth+1, right)
+
+	fmt.Printf("%s%s%d\n", strings.Repeat("   ", depth), flag, node.Value)
+	node.Left.printAsTreeNode(depth+1, left)
+}
