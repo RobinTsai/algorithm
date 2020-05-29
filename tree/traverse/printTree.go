@@ -9,10 +9,11 @@ type direction string
 
 const (
 	none  direction = ""
-	left  direction = "∧"
-	right direction = "∨"
+	left  direction = "∧" // 表示自己为左节点
+	right direction = "∨" // 表示自己为右节点
 )
 
+// 按树形打印输出（根节点在左）
 func (head *Node) PrintAsTree() {
 	head.printAsTreeNode(0, none)
 }
