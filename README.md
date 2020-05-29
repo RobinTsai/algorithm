@@ -57,7 +57,7 @@
 - 完全二叉树，二叉树除最后一层外都是满的，且最后一层从左到右是依次有节点的（不一定满）
 - 先序、中序、后序参考下图
 
-![tree_three_orders](./images/tree_three_orders.png)
+![tree_three_orders](https://upload-images.jianshu.io/upload_images/3491218-8de0fc68fe963f46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ### 基本操作
 
@@ -67,6 +67,8 @@
 - 按层遍历（宽度优先遍历）
     - 用普通数组的方式 [traverse/TraverseByLayer_ConvertToEdges](tree/traverse/main.go#TraverseByLayer_ConvertToEdges)
     - 用队列 [traverse/TraverseByLayer_Queue](tree/traverse/main.go#TraverseByLayer_Queue)
+- 序列化和反序列化，这里是转换成数组 [traverse/serialization](tree/traverse/serialization.go#Serialization)
+- 打印一个二叉树，按树形输出在终端上 [traverse/PrintAsTree](tree/traverse/printTree.go#PrintAsTree)
 - 高度优先遍历（用栈）
 
 附： 实现了一个简单的队列 [Queue](./tree/share/simpleQueue.go#Queue)

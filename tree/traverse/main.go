@@ -74,6 +74,11 @@ func main() {
 	fmt.Println("叶子节点：", leaves)
 	fmt.Println("逆序边集：", edges)
 
+	fmt.Println("\n 序列化和反序列化：")
+	Serialization()
+
+	fmt.Println("\n\n按树结构输出：")
+	head.PrintAsTree()
 }
 
 // 递归，先序，不用队列
