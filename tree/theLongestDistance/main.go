@@ -17,6 +17,13 @@ func main() {
 	fmt.Println(longestDistance)
 }
 
+// 二叉树的结构
+type Node struct {
+	Value int
+	Left  *Node
+	Right *Node
+}
+
 func getLongestDistance(head *Node) int {
 	info := getLongestInfo(head)
 	return info.LongestDistance

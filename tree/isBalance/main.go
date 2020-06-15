@@ -13,6 +13,7 @@ func main() {
 	result := isBalanceTree(head)
 	fmt.Println(result)
 }
+
 func isBalanceTree(head *Node) bool {
 	_, isBalance := balanceInfo(head)
 	return isBalance

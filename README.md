@@ -1,5 +1,13 @@
 # algorithm
 
+## 数组问题（array）
+
+### 双指针法
+
+双指针法，即用快慢两个指针进行遍历操作，一般快指针在前面“探路”，慢指针会慢几拍向前移动。一般复杂度在 O(n)。
+
+- 双指针法求数组某几个元素和为某个值（[fourSum](./array/doublePointer/fourSum.go)）
+
 ## 链表问题（linkedList）
 
 - 对于笔试，不用太在乎空间复杂度，一切为了时间复杂度
@@ -70,6 +78,10 @@
 - 序列化和反序列化，这里是转换成数组 [traverse/serialization](tree/traverse/serialization.go#Serialization)
 - 打印一个二叉树，按树形输出在终端上 [traverse/PrintAsTree](tree/traverse/printTree.go#PrintAsTree)
 - 高度优先遍历（用栈）
+- 二叉树的递归套路问题（从左右子树取信息）
+    - 判断二叉树是否为平衡树 [isBalance](tree/isBalance/main.go)
+    - 获取二叉树某一节点的所有后继节点 [successor](tree/successor/getSuccessors.go)
+    - 二叉树的最长路径 [theLongestDistance](tree/theLongestDistance/main.go)
 
 附： 实现了一个简单的队列 [Queue](./tree/share/simpleQueue.go#Queue)
 
