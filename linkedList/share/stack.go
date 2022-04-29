@@ -55,7 +55,7 @@ func (s Stack) String() string {
 	return str
 }
 
-// 为了测试方法，stack 默认最大设为了 1024
+// NewRandomIntStack 为了测试方法，stack 默认最大设为了 1024
 // 大于此值可以创建成功，但不能再添加元素
 func NewRandomIntStack(size int) *Stack {
 	maxLen := 1024

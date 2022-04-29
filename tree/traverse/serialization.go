@@ -2,12 +2,11 @@ package main
 
 import "fmt"
 
-/* 序列化反序列化转换
- * 序列化反序列化是为了方便持久化或者进行转移
- * 它们是一对相反的过程，所以规则必须对应
- * 注意对于操作的二叉树并不一定是完全二叉树
- * 所以为了标记树的叶子节点，要记录一下叶子的终止位置（叶子下为 nil 的节点）
- */
+// Serialization 序列化反序列化转换
+// 序列化反序列化是为了方便持久化或者进行转移
+// 它们是一对相反的过程，所以规则必须对应
+// 注意对于操作的二叉树并不一定是完全二叉树
+// 所以为了标记树的叶子节点，要记录一下叶子的终止位置（叶子下为 nil 的节点）
 func Serialization() {
 	head := getOneTree()
 	fmt.Print("原树先序：")
@@ -41,7 +40,7 @@ func MarshalBinaryTreeToArray(head *Node) []int {
 	return nodeValues
 }
 
-// 注意这里的 nodes 需要用切片指针传入
+// PreOrderPushToArray 注意这里的 nodes 需要用切片指针传入
 // 参考：https://github.com/RobinTsai/Go-Questions/blob/master/数组和切片/切片作为函数参数.md
 // 猜想究其原因可能是这样：
 //   因为 slice 相当于一个结构体，包含 len, cap, array 三部分
@@ -57,7 +56,7 @@ func PreOrderPushToArray(head *Node, nodes *[]*Node) {
 	PreOrderPushToArray(head.Right, nodes)
 }
 
-// arr 是一个二叉树经过先序序列化后的数组
+// UnmarshalArrayToBinaryTree arr 是一个二叉树经过先序序列化后的数组
 func UnmarshalArrayToBinaryTree(arr []int) *Node {
 	cur := 0
 	head := joinNode(nil, arr, &cur)

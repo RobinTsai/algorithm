@@ -13,17 +13,17 @@ const (
 	right direction = "∨" // 表示自己为右节点
 )
 
-// 按树形打印输出（根节点在左）
-func (head *Node) PrintAsTree() {
-	head.printAsTreeNode(0, none)
+// PrintAsTree 按树形打印输出（根节点在左）
+func (n *Node) PrintAsTree() {
+	n.printAsTreeNode(0, none)
 }
 
-func (node *Node) printAsTreeNode(depth int, flag direction) {
-	if node == nil {
+func (n *Node) printAsTreeNode(depth int, flag direction) {
+	if n == nil {
 		return
 	}
-	node.Right.printAsTreeNode(depth+1, right)
+	n.Right.printAsTreeNode(depth+1, right)
 
-	fmt.Printf("%s%s%d\n", strings.Repeat("   ", depth), flag, node.Value)
-	node.Left.printAsTreeNode(depth+1, left)
+	fmt.Printf("%s%s%d\n", strings.Repeat("   ", depth), flag, n.Value)
+	n.Left.printAsTreeNode(depth+1, left)
 }
