@@ -69,6 +69,7 @@
 
 ### 基本操作
 
+- 根据先序和中序构建二叉树 [traverse/build](./tree/build/main.go)
 - 二叉树的先序、中序、后序遍历
     - 原生的方式 [traverse/raw](./tree/traverse/raw.go)
     - 递归用队列和不用队列的方式 [traverse/PreOrder](./tree/traverse/recursion.go)
