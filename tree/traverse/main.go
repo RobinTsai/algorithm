@@ -21,7 +21,7 @@ import (
 	. "robintsai/algorithm/tree/share"
 )
 
-// 二叉树的结构
+// Node 二叉树的结构
 type Node struct {
 	Value int
 	Left  *Node
@@ -30,6 +30,7 @@ type Node struct {
 
 func main() {
 	head := getOneTree()
+	PrintEveryBranch.ByRecursionWithBacktrace(head)
 
 	// 迭代方式入列出列实现按层遍历
 	TraverseByLayer_Queue(head)
@@ -88,8 +89,9 @@ func (n Node) String() string {
 // --------------- 辅助函数 --------------
 // 返回一个二叉树示例
 //       A         1
-//    B    C    2    3
-//   D E  F G  4 5  6 7
+//     B    C     2    3
+//   D  E  F G  4  5  6 7
+//    H          8
 func getOneTree() *Node {
 	a := &Node{Value: 1}
 	b := &Node{Value: 2}

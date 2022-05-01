@@ -72,12 +72,16 @@
 - 二叉树的先序、中序、后序遍历
     - 原生的方式 [traverse/raw](./tree/traverse/raw.go)
     - 递归用队列和不用队列的方式 [traverse/PreOrder](./tree/traverse/recursion.go)
+    - 用两个栈实现后序遍历 [traverse/RawPostTraverse_WithTwoStack](./tree/traverse/raw.go)
 - 按层遍历（宽度优先遍历）
     - 用普通数组的方式 [traverse/TraverseByLayer_ConvertToEdges](tree/traverse/layer.go)
     - 用队列 [traverse/TraverseByLayer_Queue](tree/traverse/layer.go)
 - 序列化和反序列化，这里是转换成数组 [traverse/serialization](tree/traverse/serialization.go)
 - 打印一个二叉树，按树形输出在终端上 [traverse/PrintAsTree](tree/traverse/printTree.go)
-- 高度优先遍历（用栈）
+- 深度优先遍历 [traverse/depth](tree/traverse/depth.go)
+    - 输出所有的分支 `PrintEveryBranch`
+        - 栈+回溯的方法 `printEveryBranch.ByRecursionWithBacktrace`
+        - 迭代+回溯的方法 `printEveryBranch.ByIterationWithBacktrace`
 - 二叉树的递归套路问题（从左右子树取信息）
     - 判断二叉树是否为平衡树 [isBalance](tree/isBalance/main.go)
     - 获取二叉树某一节点的所有后继节点 [successor](tree/successor/getSuccessors.go)
