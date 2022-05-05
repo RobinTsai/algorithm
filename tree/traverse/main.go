@@ -30,6 +30,10 @@ type Node struct {
 
 func main() {
 	head := getOneTree()
+
+	IterationPreOrMid(head, "pre")
+	IterationPreOrMid(head, "mid")
+	return
 	PrintEveryBranch.ByRecursionWithBacktrace(head)
 
 	// 迭代方式入列出列实现按层遍历

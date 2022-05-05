@@ -7,6 +7,41 @@ package main
 
 import "fmt"
 
+// IterationPreOrMid 先序和中序可以参照此模板
+// 差别就在于处理输出逻辑的位置不同
+// 后序的话因为需要额外的辅助，所以参考
+func IterationPreOrMid(head *Node, order string) {
+	if head == nil {
+		return
+	}
+
+	pre := func(val *Node) {
+		if order == "pre" {
+			fmt.Print(val, " ")
+		}
+	}
+	mid := func(val *Node) {
+		if order == "mid" {
+			fmt.Print(val, " ")
+		}
+	}
+
+	stack := make([]*Node, 0, 10)
+	start := true
+	for len(stack) > 0 || start || head != nil {
+		start = false
+		for head != nil { // 1
+			pre(head) //
+			stack = append(stack, head)
+			head = head.Left
+		}
+		head, stack = stack[len(stack)-1], stack[:len(stack)-1] // 2
+		mid(head)
+		head = head.Right // 3
+	}
+	fmt.Println()
+}
+
 // RawMidTraverse 纯逻辑（非递归）实现中序遍历
 // 关键点：让每个结点都有入栈出栈操作，这样相当于只需要考虑一个最基本的二叉树，不然会很难处理特殊情况。
 // 这个时候当 head 为 nil 时从 stack 中取结点作为 head
@@ -30,8 +65,8 @@ func RawMidTraverse(head *Node) {
 			return
 		}
 		head, stack = stack[last], stack[:last] // 从 stack 中拿出一个结点作为 head
-		fmt.Print(head.Value, " ")              // 输出
-		head = head.Right                       // 右结点作为 head，继续下一轮
+		fmt.Print(head.Value, " ")              //
+		head = head.Right                       // 右结点作为 head，继续下一轮（注意这里不判断是否 nil 都进入下一轮）
 	}
 	fmt.Println()
 }
@@ -50,6 +85,7 @@ func RawPreTraverse(head *Node) {
 	start := true
 	for len(stack) > 0 || // 主要条件
 		start || head != nil { // 两个特殊情况条件
+
 		start = false
 		for head != nil {
 			fmt.Print(head.Value, " ")
@@ -113,8 +149,7 @@ func RawPostTraverse(head *Node) {
 		}
 
 		last := stack[len(stack)-1]
-		if last.Right == nil ||
-			fromNode == last.Right { // 从右结点回来或右结点为 nil
+		if last.Right == nil || last.Right == fromNode { // 从右结点回来或右结点为 nil
 			fmt.Print(last.Value, " ")
 			fromNode = last
 			stack = stack[:len(stack)-1]
