@@ -11,13 +11,53 @@ import (
 	"math"
 )
 
+// TheLongestDistance 作为 Receiver，获取树的最长路径
+type TheLongestDistance struct {
+	Head *Node
+}
+
+// Exec 方法：递归，从左右子节点上分别获取最大深度，并将自己加入后判断
+func (r *TheLongestDistance) Exec() int {
+	type depthInfo struct {
+		curDepth    int // 最大深度
+		maxDistance int // 最大长度
+	}
+	max := func(a int, bs ...int) int {
+		for _, b := range bs {
+			if b > a {
+				a = b
+			}
+		}
+		return a
+	}
+
+	var getDepthInfo func(head *Node) depthInfo
+	getDepthInfo = func(head *Node) depthInfo {
+		if head == nil {
+			return depthInfo{0, 0}
+		}
+
+		li := getDepthInfo(head.Left)
+		ri := getDepthInfo(head.Right)
+		return depthInfo{
+			curDepth:    max(li.curDepth, ri.curDepth) + 1,
+			maxDistance: max(li.curDepth+ri.curDepth+1, li.maxDistance, ri.maxDistance),
+		}
+	}
+
+	headInfo := getDepthInfo(r.Head)
+	return headInfo.maxDistance
+}
+
 func main() {
 	head := buildExampleTree()
 	longestDistance := getLongestDistance(head)
-	fmt.Println(longestDistance)
+
+	d2 := (&TheLongestDistance{head}).Exec()
+	fmt.Println(longestDistance, d2)
 }
 
-// 二叉树的结构
+// Node 二叉树的结点
 type Node struct {
 	Value int
 	Left  *Node
@@ -63,10 +103,11 @@ func getIntMax(a ...int) int {
 
 // --------------- 辅助函数 --------------
 // 返回一个二叉树示例
-//       A          1
-//    B     C    2     3
-//     E   F      5   6
-//      D G        4 7
+//     A
+//    B
+//   C E
+//  F   D
+// G
 func buildExampleTree() *Node {
 	a := &Node{Value: 1}
 	b := &Node{Value: 2}
@@ -77,8 +118,8 @@ func buildExampleTree() *Node {
 	g := &Node{Value: 7}
 
 	a.Left = b
-	a.Right = c
 	b.Right = e
+	b.Left = c
 	e.Right = d
 	c.Left = f
 	f.Left = g

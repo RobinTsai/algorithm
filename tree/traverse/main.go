@@ -29,11 +29,11 @@ type Node struct {
 }
 
 func main() {
-	head := getOneTree()
-
-	IterationPreOrMid(head, "pre")
-	IterationPreOrMid(head, "mid")
+	isMirror := getOneMirrorTree()
+	is := isMirror.Exec(isMirror.Head, isMirror.Head)
+	fmt.Println(is)
 	return
+	head := getOneTree()
 	PrintEveryBranch.ByRecursionWithBacktrace(head)
 
 	// 迭代方式入列出列实现按层遍历

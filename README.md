@@ -87,6 +87,7 @@
     - 判断二叉树是否为平衡树 [isBalance](tree/isBalance/main.go)
     - 获取二叉树某一节点的所有后继节点 [successor](tree/successor/getSuccessors.go)
     - 二叉树的最长路径 [theLongestDistance](tree/theLongestDistance/main.go)
+    - 判断二叉树是否为镜像树 [IsMirror](tree/traverse/isMirror.go)
 
 附： 实现了一个简单的队列 [Queue](./tree/share/simpleQueue.go)
 

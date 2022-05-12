@@ -28,7 +28,7 @@ func MarshalBinaryTreeToArray(head *Node) []int {
 	nodes := make([]*Node, 0, 100)
 	PreOrderPushToArray(head, &nodes)
 
-	nodeValues := []int{} // 序列化为数组，-1 代表 nil
+	nodeValues := make([]int, 0, 100) // 序列化为数组，-1 代表 nil
 	for _, node := range nodes {
 		if node == nil {
 			nodeValues = append(nodeValues, -1)
