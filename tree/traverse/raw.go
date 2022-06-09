@@ -84,7 +84,7 @@ func RawPreTraverse(head *Node) {
 	stack := make([]*Node, 0, 10)
 	start := true
 	for len(stack) > 0 || // 主要条件
-		start || head != nil { // 两个特殊情况条件
+		start || head != nil { // 两个特殊情况条件（start 多余了，因为 head 首次不为 nil）
 
 		start = false
 		for head != nil {
@@ -158,6 +158,37 @@ func RawPostTraverse(head *Node) {
 		head = last.Right // 右结点重新在 for 中循环分析
 	}
 	fmt.Println()
+}
+
+// 因为栈只有入和出两个状态，可以在出栈时判断后序的访问，这就要求在分析完当前节点的右节点之后再出栈
+// 总思路就是左节点入栈完后右节点也入栈，等右节点出栈分析完后（包含已出栈），输出当前节点
+// 当问题在于怎么判断右节点分析完，判断方法是缓存一下上次弹出的节点 last
+// 如果 last == peek.Right 则 peek 出栈并打印（peek 为栈顶节点元素）
+// nil 不会入栈
+func postOrder(root *Node) { // 再加一个分析
+	if root == nil {
+		return
+	}
+	stack := make([]*Node, 0)
+	cur := root
+
+	var last *Node
+	for len(stack) > 0 || cur != nil {
+		for cur != nil { // 所有左结点入栈，直到 nil
+			stack = append(stack, cur)
+			cur = cur.Left
+		}
+		peek := stack[len(stack)-1] // 先获取信息不出栈（这里不用考虑 nil，因为栈中没有 nil 值且一定能获取到）
+
+		if peek.Right == nil || peek.Right == last { // 右节点分析完。条件：peek.right 是 nil 或着 last，则是第三次遍历到
+			fmt.Print(peek.Val, " ")                                // 输出
+			last, stack = stack[len(stack)-1], stack[:len(stack)-1] // 更新 last 和栈
+			continue                                                // 如果下方有 else 此步可去掉
+		} else { // 如果上方有 continue 此 else 可去掉
+			// 如果有右节点，则更新当前值，进入 for 循环进行分析
+			cur = peek.Right // 更新 cur
+		}
+	}
 }
 
 // RawPostTraverse_WithTwoStack 用两个栈实现后序输出
